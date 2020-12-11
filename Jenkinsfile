@@ -9,7 +9,7 @@ pipeline{
 	 			}	
       }
     }
-		
+}
     
      stage('Input_testing'){
      		steps{
@@ -34,4 +34,3 @@ pipeline{
 		}
 	  }
 	}
-}

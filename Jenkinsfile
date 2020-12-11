@@ -12,7 +12,7 @@ pipeline{
 		
     
      stage('Input_testing'){
-     	steps{
+     		steps{
 				script{
 					if (env.BRANCH_NAME == 'Input_Testing') {
 						sh 'python test_app.py'

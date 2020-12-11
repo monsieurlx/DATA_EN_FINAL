@@ -4,6 +4,8 @@ import nltk
 import numpy as np
 from nltk import word_tokenize
 from nltk.corpus import stopwords
+nltk.download('stopwords')
+nltk.download('punkt')
 #from unidecode import unidecode
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer

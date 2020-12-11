@@ -1,7 +1,7 @@
 pipeline{
-  agent any
+	agent any
   stages {
-    stage('Run Web page'){
+  	stage('Run Web page'){
     	steps{
 				script{
 					if (env.BRANCH_NAME == 'webinterface') {

@@ -19,6 +19,7 @@ pipeline{
 					}
 		    }
 			}
+		}
 				stage('stress_test'){
 					steps{
 						script{
@@ -31,5 +32,4 @@ pipeline{
 				
 		   }
 		 }
-		}
 }

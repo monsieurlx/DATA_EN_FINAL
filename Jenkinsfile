@@ -18,7 +18,7 @@ pipeline{
 						sh 'python test_app.py'
 					}
 		    }
-				
+			}
 				stage('stress_test'){
 					steps{
 						script{
@@ -32,5 +32,4 @@ pipeline{
 		   }
 		 }
 		}
-	  }
-	}
+}

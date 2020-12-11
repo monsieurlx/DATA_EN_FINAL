@@ -1,15 +1,15 @@
 pipeline{
   agent any
   stages {
-    if (env.BRANCH_NAME == 'webinterface') {
-      stage('Run Web page'){
-        steps{
-	  sh 'python Project.py'
-	 }	
+    stage('Run Web page'){
+    	steps{
+				script{
+					if (env.BRANCH_NAME == 'webinterface') {
+	  				sh 'python Project.py'
+	 			}	
       }
     }
-
-    
+		
     if (env.BRANCH_NAME == 'Input_Testing') {
       stage('Testing'){
         steps{

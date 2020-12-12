@@ -46,7 +46,7 @@ pipeline{
      		steps{
      			script{
      				if (env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker') {
-							sh 'docker rm -f tweet_app'
+							sh 'docker rmi -f tweet_app'
 		    	}
 				}
 			}

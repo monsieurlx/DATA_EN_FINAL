@@ -2,9 +2,9 @@ pipeline{
   agent any
   stages {
   	stage('Build docker image'){
-  		script{
-  			if (env.BRANCH_ENV == 'Docker') {
-		  		steps{
+  		steps{
+  			script{
+  				if (env.BRANCH_ENV == 'Docker') {
 		    		sh 'docker build -t tweet_app .'
 		  		}
 				}

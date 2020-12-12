@@ -1,7 +1,6 @@
 import unittest
 import requests
 import os
-import langdetect
 import time
 
 

@@ -14,13 +14,13 @@ def count():
 	
 	while(start<end):
 		
-		requests.post(url, data=nm)
-		resp = requests.get(url)
+		resp = requests.post(url, data=nm)
+		requests.get(url)
 		start = start+ rand
 		c=c+1
 
 		if resp.status_code != 200:
-			print('Failed to handle request : {} '.format(c))
+			print('Failed to handle request {}: '.format(c))
 			return c
 		
 		

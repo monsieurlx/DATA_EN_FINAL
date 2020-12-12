@@ -9,11 +9,10 @@ nltk.download('punkt')
 #from unidecode import unidecode
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer
-from gensim.test.utils import common_texts
-from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
+import pickle
 from flask import jsonify
 
 
@@ -25,8 +24,8 @@ def pre_process(corpus):
     corpus = str(corpus)
     return corpus
 
-model = Word2Vec(sentences=common_texts, window=5, min_count=1, workers=4)
-word_emb_model = model
+
+word_emb_model = word_emb_model = pickle.load(open('word_emb','rb'))
 
 def get_cosine_similarity(feature_vec_1, feature_vec_2):    
     return cosine_similarity(feature_vec_1.reshape(1, -1), feature_vec_2.reshape(1, -1))[0][0]

@@ -11,7 +11,7 @@ pipeline{
     	}
     }
     
-    stage('Run containerized application){
+    stage('Run containerized application'){
   		script{
   			if (env.BRANCH_ENV == 'Docker') {
 		  		steps{

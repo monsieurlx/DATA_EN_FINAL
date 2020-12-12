@@ -12,9 +12,9 @@ pipeline{
     }
     
     stage('Run containerized application'){
-  		script{
-  			if (env.BRANCH_ENV == 'Docker') {
-		  		steps{
+      steps{
+  			script{
+  				if (env.BRANCH_ENV == 'Docker') {
 		    		sh 'docker RUN -p 5000:5000 tweet_app'
 		  		}
 				}

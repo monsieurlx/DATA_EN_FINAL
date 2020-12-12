@@ -4,7 +4,7 @@ pipeline{
   	stage('Build docker image'){
   		steps{
   			script{
-  				if (env.BRANCH_ENV == 'Docker') {
+  				if (env.BRANCH_ENV == 'Docker' || env.BRANCH_ENV == 'development') {
 		    		sh 'docker build -t tweet_app .'
 		  		}
 				}
@@ -41,6 +41,18 @@ pipeline{
 				
 		  }
 		}
+		
+		stage('Delete container'){
+     		steps{
+     			script{
+     				if (env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker') {
+							sh 'docker rmi -f tweet_app'
+		    	}
+				}
+			}
+		}
+		
+		
 	}
 }
 

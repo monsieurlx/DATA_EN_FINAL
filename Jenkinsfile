@@ -42,6 +42,37 @@ pipeline{
 		  }
 		}
 		
+		stage('Release phase'){
+     		steps{
+     			script{
+     				if (env.BRANCH_NAME == 'release') {
+							echo '"deploying"' 
+		    	}
+				}
+			}
+		}
+		
+		stage('User validation'){
+     		steps{
+     			script{
+     				if (env.BRANCH_NAME == 'release') {
+							input 'Accept merge to master ??'
+		    	}
+				}
+			}
+		}
+		
+		stage('Final merging'){
+     		steps{
+     			script{
+     				if (env.BRANCH_NAME == 'release') {
+							echo 'Merged to the original product !'
+		    	}
+				}
+			}
+		}
+				
+				
 		stage('Delete container'){
      		steps{
      			script{

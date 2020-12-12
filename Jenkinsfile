@@ -25,7 +25,7 @@ pipeline{
      		steps{
      			script{
      				if (env.BRANCH_NAME == 'Input_Testing') {
-							sh 'python test_app.py'
+							sh 'python3 test_app.py'
 		    	}
 				}
 			}

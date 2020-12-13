@@ -12,10 +12,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from flask import jsonify
 from prometheus_client import start_http_server
+import pickle
+
 nltk.download('stopwords')
 nltk.download('punkt')
-import pickle 
-
 
 def pre_process(corpus):
     corpus = corpus.lower()
@@ -25,7 +25,9 @@ def pre_process(corpus):
     corpus = str(corpus)
     return corpus
 
-
+def index_in_list(a_list, index):
+    return (index < len(a_list))
+    
 word_emb_model = word_emb_model = pickle.load(open('word_emb','rb'))
 
 def get_cosine_similarity(feature_vec_1, feature_vec_2):    
@@ -74,18 +76,22 @@ def text():
         for i in l2:
             d[i] = l[i]
 
-        d1 = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
+        d1 = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse=True)}
         l5=[]
         s=0
         for i in range(1,20):
-            df3 = df.loc[lambda df: df['Unnamed: 0'] == list(d1)[i]]
-            s = list(df3['text'])
-            if not s:
-                l5.append("no similar tweet found for now")
-                l5.append('<br/>')
-            else:
-                l5.append(s[0])
-                l5.append('<br/>')
+        	if index_in_list(list(d1), i):
+            		df3 = df.loc[lambda df: df['Unnamed: 0'] == list(d1)[i]]
+            		s = list(df3['text'])
+            		if not s:
+             			return 'No similar tweet found'
+            		else:
+             			l5.append(s[0])
+             			l5.append('<br/>')
+            		
+        	else:
+		        return 'No similar tweet found'	
+	     
         
                
         joined_string = "".join(l5)

@@ -66,8 +66,8 @@ pipeline{
      		steps{
      			script{
      				if (env.BRANCH_NAME == 'release') {
-							sh 'git checkout main'
-							sh 'git merge release'
+							sh 'git checkout origin/main'
+							sh 'git merge origin/release'
 		    	}
 				}
 			}

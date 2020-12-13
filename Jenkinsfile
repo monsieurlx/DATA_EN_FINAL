@@ -48,8 +48,9 @@ pipeline{
 					script{
     				if (env.BRANCH_NAME == 'development') {
     					sh 'git fetch'
-    					sh 'git checkout -b release'
-    					sh 'git merge origin/development'
+    					//sh 'git checkout -b release'
+    					//sh 'git merge origin/development'
+    					sh'git push -u origin release'
 					}
 				}
 				

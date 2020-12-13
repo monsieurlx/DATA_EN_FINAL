@@ -47,6 +47,7 @@ pipeline{
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'development') {
+    					sh 'git fetch'
     					sh 'git checkout release'
     					sh 'git merge development'
 					}

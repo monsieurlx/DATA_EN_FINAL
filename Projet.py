@@ -4,38 +4,40 @@ import nltk
 import numpy as np
 from nltk import word_tokenize
 from nltk.corpus import stopwords
+#from unidecode import unidecode
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from flask import jsonify
-import pickle
 from prometheus_client import start_http_server
-
+nltk.download('stopwords')
+nltk.download('punkt')
+import pickle 
 
 
 def pre_process(corpus):
     corpus = corpus.lower()
     stopset = stopwords.words('english') + list(string.punctuation)
     corpus = " ".join([i for i in word_tokenize(corpus) if i not in stopset])
+    #corpus = unidecode(corpus)
     corpus = str(corpus)
     return corpus
 
 
-word_emb_model = pickle.load(open('word_emb','rb'))
+word_emb_model = word_emb_model = pickle.load(open('word_emb','rb'))
 
 def get_cosine_similarity(feature_vec_1, feature_vec_2):    
     return cosine_similarity(feature_vec_1.reshape(1, -1), feature_vec_2.reshape(1, -1))[0][0]
 
 df = pd.read_csv('tweets.csv')
 df.drop_duplicates(subset ="text", keep = False, inplace = True)
-df = df.head(1000)
-l = []
+#df = df.head(5000)
+#l = []
 
 
 app = Flask(__name__)
-
 @app.route('/')
 def home():
     return render_template("test.html")
@@ -43,6 +45,7 @@ def home():
 @app.route("/text", methods=["POST","GET"])
 def text():
     if request.method == "POST":
+        l = []
         corpus = []
         corpus.append(request.form["nm"])
         for c in range(len(corpus)):
@@ -83,12 +86,10 @@ def text():
             else:
                 l5.append(s[0])
                 l5.append('<br/>')
-            
-            
-                
-            #a = list(df3['text'])
-            #a = str(df3['text'])
+        
+               
         joined_string = "".join(l5)
+        l5=[] 
           
         return joined_string
           
@@ -105,3 +106,7 @@ def text():
 if __name__ == '__main__':
     start_http_server(8081)
     app.run(host='0.0.0.0')
+
+
+    
+

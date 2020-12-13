@@ -50,7 +50,7 @@ pipeline{
     					sh 'git fetch'
     					//sh 'git checkout -b release'
     					//sh 'git merge origin/development'
-    					sh'git remote add origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh'git remote push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
     					
 					}
 				}

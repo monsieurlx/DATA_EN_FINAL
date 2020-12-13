@@ -4,7 +4,7 @@ pipeline{
   	stage('Build docker image'){
   		steps{
   			script{
-  				if (env.BRANCH_ENV == 'Docker' || env.BRANCH_ENV == 'development') {
+  				if (env.BRANCH_ENV == 'Docker' || env.BRANCH_ENV == 'development' || env.BRANCH_ENV == 'release' || env.BRANCH_ENV == 'main') {
 		    		sh 'docker build -t tweet_app .'
 		  		}
 				}
@@ -14,7 +14,7 @@ pipeline{
     stage('Run containerized application'){
       steps{
   			script{
-  				if (env.BRANCH_ENV == 'Docker') {
+  				if (env.BRANCH_ENV == 'Docker' || env.BRANCH_ENV == 'development' || env.BRANCH_ENV == 'release' || env.BRANCH_ENV == 'main' ) {
 		    		sh 'docker RUN -p 5000:5000 tweet_app'
 		  		}
 				}
@@ -33,7 +33,7 @@ pipeline{
 		 stage('stress_test'){
 				steps{
 					script{
-    				if (env.BRANCH_NAME == 'stress_test') {
+    				if (env.BRANCH_NAME == 'stress_test' ) {
       				sh 'python3 request_loop.py'
         			sh 'locust -f locust_test.py --headless -u 1000'
 					}
@@ -41,6 +41,20 @@ pipeline{
 				
 		  }
 		}
+		
+		
+		stage('push to release'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'development') {
+    					sh 'git checkout release'
+    					sh 'git merge development'
+					}
+				}
+				
+		  }
+		}
+		
 		
 		stage('Release phase'){
      		steps{
@@ -66,7 +80,8 @@ pipeline{
      		steps{
      			script{
      				if (env.BRANCH_NAME == 'release') {
-							echo 'Merged to the original product !'
+							sh 'git checkout main'
+							sh 'git merge release'
 		    	}
 				}
 			}
@@ -76,7 +91,7 @@ pipeline{
 		stage('Delete container'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker') {
+     				if (env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker' || env.BRANCH_ENV == 'development'|| env.BRANCH_ENV == 'main') {
 							sh 'docker rmi -f tweet_app'
 		    	}
 				}
@@ -86,6 +101,7 @@ pipeline{
 		
 	}
 }
+
 
 
 

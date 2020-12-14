@@ -50,7 +50,7 @@ pipeline{
     				if (env.BRANCH_NAME == 'test') {
     					sh 'git fetch'
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
-    					sh 'git checkout origin/development'
+    					sh 'git checkout remotes/origin/development'
     					//sh'git add *'
     					//sh'git commit -m "releasing developped features"'
     					//sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'

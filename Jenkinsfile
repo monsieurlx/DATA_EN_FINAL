@@ -51,6 +51,8 @@ pipeline{
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
     					//sh 'git branch -a'
     					//sh 'git remote add origin https://github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh 'git checkout -b origin/Docker || git checkout origin/Docker'
+    					sh 'git pull'
     					sh 'git checkout -b origin/development || git checkout origin/development'		
     					sh 'git pull'
     					sh 'git fetch --all'			

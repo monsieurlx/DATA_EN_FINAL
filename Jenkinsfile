@@ -50,6 +50,7 @@ pipeline{
     				if (env.BRANCH_NAME == 'test') {
     					sh 'git fetch'
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
+    					sh 'git branch -a'
     					sh 'git checkout remotes/origin/development'
     					//sh'git add *'
     					//sh'git commit -m "releasing developped features"'

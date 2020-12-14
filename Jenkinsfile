@@ -47,11 +47,11 @@ pipeline{
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'development') {
-    					sh 'git fetch'
-    					sh 'git config --global user.email "leoixeu@hotmail.fr"'
-    					sh'git add *'
-    					sh'git commit -m "releasing developped features"'
-    					sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh 'git fetch'
+    					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
+    					//sh'git add *'
+    					//sh'git commit -m "releasing developped features"'
+    					//sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
     					
 					}
 				}

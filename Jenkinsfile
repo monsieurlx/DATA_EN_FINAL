@@ -35,7 +35,7 @@ pipeline{
 					script{
     				if (env.BRANCH_NAME == 'stress_test' || env.BRANCH_NAME == 'test') {
       				sh 'python3 request_loop.py'
-        			sh 'locust -f locust_test.py --headless -u 1000'
+        		//	sh 'locust -f locust_test.py --headless -u 1000'
 					}
 				}
 				

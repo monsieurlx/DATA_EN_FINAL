@@ -24,7 +24,7 @@ pipeline{
     stage('Input_testing'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'Input_Testing') {
+     				if (env.BRANCH_NAME == 'Input_Testing' || env.BRANCH_NAME == 'test') {
 							sh 'python3 test_app.py'
 		    	}
 				}
@@ -33,7 +33,7 @@ pipeline{
 		 stage('stress_test'){
 				steps{
 					script{
-    				if (env.BRANCH_NAME == 'stress_test') {
+    				if (env.BRANCH_NAME == 'stress_test' || env.BRANCH_NAME == 'test') {
       				sh 'python3 request_loop.py'
         			sh 'locust -f locust_test.py --headless -u 1000'
 					}
@@ -41,6 +41,26 @@ pipeline{
 				
 		  }
 		}
+		
+		// If the test succeeded then : 
+		
+		stage('push to release'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'test') {
+    					sh 'git fetch'
+    					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
+    					sh 'git checkout origin/development'
+    					//sh'git add *'
+    					//sh'git commit -m "releasing developped features"'
+    					//sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					
+					}
+				}
+				
+		  }
+		}
+		
 		
 		stage('Release phase'){
      		steps{
@@ -55,8 +75,8 @@ pipeline{
 		stage('User validation'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'Input_Testing') {
-							input 'Accept merge to stress ??'
+     				if (env.BRANCH_NAME == 'release') {
+							input 'Accept merge to master ??'
 		    	}
 				}
 			}
@@ -65,9 +85,9 @@ pipeline{
 		stage('Final merging'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'Input_Testing') {
-							sh 'git checkout test'
-							sh 'git merge Input_Testing'
+     				if (env.BRANCH_NAME == 'release') {
+							sh 'git checkout main'
+							sh 'git merge release'
 		    	}
 				}
 			}
@@ -87,3 +107,7 @@ pipeline{
 		
 	}
 }
+
+
+
+

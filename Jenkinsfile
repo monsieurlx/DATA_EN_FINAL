@@ -50,6 +50,8 @@ pipeline{
     					sh 'git fetch'
     					//sh 'git checkout -b release'
     					//sh 'git merge origin/development'
+    					sh'git add *'
+    					sh'git commit -m 'releasing developped features'
     					sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
     					
 					}

@@ -48,11 +48,11 @@ pipeline{
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'test') {
-    					sh 'git fetch'
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
     					//sh 'git branch -a'
     					//sh 'git remote add origin https://github.com/monsieurlx/DATA_EN_FINAL.git'
-    					sh 'git checkout -b origin/development || git checkout origin/development'
+    					sh 'git checkout -b origin/development || git checkout origin/development'					
+    					sh 'git fetch origin Docker'
     					sh 'git merge origin/Docker'
     					//sh'git add *'
     					sh'git commit -m "add image to development"'

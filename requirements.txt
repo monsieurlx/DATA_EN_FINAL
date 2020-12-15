@@ -1,4 +1,9 @@
 flask 
 pandas
+<<<<<<< HEAD:requirements.txt
+=======
+gensim
+sklearn
+>>>>>>> 27534578b179180c9b527461b8ea5291880bf40d:requirement.txt
 nltk
 sklearn

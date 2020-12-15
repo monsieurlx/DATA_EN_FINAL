@@ -68,7 +68,7 @@ pipeline{
 		  }
 		}
 		
-		
+		*/
 		
 	
 		stage('push to release'){
@@ -87,7 +87,6 @@ pipeline{
 				
 		  }
 		}
-	*/
 		
 		stage('Release phase'){
      		steps{

@@ -1,9 +1,10 @@
 pipeline{
   agent any
   stages {
+/*
   	stage('Build docker image'){
   		steps{
-  		/*
+  		
   			script{
   				if (env.BRANCH_ENV == 'Docker' || env.BRANCH_ENV == 'development') {
 		    		sh 'docker build -t tweet_app .'
@@ -31,7 +32,7 @@ pipeline{
 				}
 			}
 		}
-		*/
+*/
 		 stage('stress_test'){
 				steps{
 					script{
@@ -44,7 +45,7 @@ pipeline{
 				
 		  }
 		}
-		/*
+/*
 		stage('Delete container'){
      		steps{
      			script{
@@ -54,9 +55,7 @@ pipeline{
 				}
 			}
 		}
-		*/
+*/
 		
 	}
 }
-
-

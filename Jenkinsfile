@@ -78,7 +78,7 @@ pipeline{
     					sh 'git checkout -b release || git checkout release'	
     					sh 'git fetch'	
     					sh 'git pull'
-    					sh 'git merge development'
+    					sh 'git merge origin/development'
     					sh'git commit --allow-empty -m "release the application"'
     					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
     					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'

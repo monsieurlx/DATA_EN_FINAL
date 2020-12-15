@@ -51,14 +51,14 @@ pipeline{
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
     					//sh 'git branch -a'
     					//sh 'git remote add origin https://github.com/monsieurlx/DATA_EN_FINAL.git'
-    					sh 'git checkout -b origin/Docker || git checkout origin/Docker'
+    					sh 'git checkout -b Docker || git checkout Docker'
     					sh 'git pull'
-    					sh 'git checkout -b origin/development || git checkout origin/development'		
+    					sh 'git checkout -b development || git checkout development'		
     					sh 'git pull'
-    					sh 'git fetch --all'			
+    					//sh 'git fetch --all'			
     					sh 'git merge origin/Docker'
     					//sh'git add *'
-    					sh'git commit -m "add image to development"'
+    					sh'git commit --allow-empty -m "add image to development"'
     					sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
     					
 					}

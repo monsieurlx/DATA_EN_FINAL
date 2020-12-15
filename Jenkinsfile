@@ -59,14 +59,13 @@ pipeline{
     					sh 'git merge origin/Docker'
     					//sh'git add *'
     					sh'git commit --allow-empty -m "add image to development"'
-    					sh'git push origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh'git push origin https://leoixeu@hotmail.fr:25f0e6245afd8b0ad138ead552d98bdfb3670af0@github.com/monsieurlx/DATA_EN_FINAL.git'
     					
 					}
 				}
 				
 		  }
 		}
-		
 		
 		stage('Release phase'){
      		steps{

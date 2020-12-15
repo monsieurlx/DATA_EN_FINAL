@@ -1,6 +1,7 @@
 pipeline{
   agent any
   stages {
+  /*
   	stage('Build docker image'){
   		steps{
   			script{
@@ -20,7 +21,7 @@ pipeline{
 				}
     	}
     }
-		
+	*/
     stage('Input_testing'){
      		steps{
      			script{
@@ -30,6 +31,7 @@ pipeline{
 				}
 			}
 		}
+		/*
 		 stage('stress_test'){
 				steps{
 					script{
@@ -83,7 +85,7 @@ pipeline{
 				}
 			}
 		}
-		
+		*/
 		
 	}
 }

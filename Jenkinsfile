@@ -60,7 +60,7 @@ pipeline{
     					sh 'git merge origin/Docker'
     					//sh'git add *'
     					sh'git commit --allow-empty -m "add image to development"'
-    					sh'git push https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
     					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
 					}
 				}

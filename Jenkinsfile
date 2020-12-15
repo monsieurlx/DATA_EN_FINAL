@@ -20,7 +20,7 @@ pipeline{
 				}
     	}
     }
-		
+		/*
     stage('Input_testing'){
      		steps{
      			script{
@@ -41,7 +41,7 @@ pipeline{
 				
 		  }
 		}
-		
+		*/
 		stage('Delete container'){
      		steps{
      			script{

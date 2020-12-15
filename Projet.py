@@ -84,15 +84,15 @@ def text():
             		df3 = df.loc[lambda df: df['Unnamed: 0'] == list(d1)[i]]
             		s = list(df3['text'])
             		if not s:
-             			return 'No similar tweet found'
-             			#l5.append('<br/>')
+             			l5.append('No similar tweet found')
+             			l5.append('<br/>')
             		else:
              			l5.append(s[0])
              			l5.append('<br/>')
             		
         	else:
-		        return 'No similar tweet found'
-		        #l5.append('<br/>')	
+		        l5.append('No similar tweet found')
+		        l5.append('<br/>')	
 	     
         
                

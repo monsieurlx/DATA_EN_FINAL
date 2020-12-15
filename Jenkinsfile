@@ -44,7 +44,7 @@ pipeline{
 		
 		// If the test succeeded then : 
 		
-		stage('push to release'){
+		stage('development stage'){
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'test') {
@@ -60,6 +60,23 @@ pipeline{
     					sh 'git merge origin/Docker'
     					//sh'git add *'
     					sh'git commit --allow-empty -m "add image to development"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
+					}
+				}
+				
+		  }
+		}
+		/*
+		stage('push to release'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'development') {
+    					sh 'git checkout -b release || git checkout release'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					sh 'git merge development'
+    					sh'git commit --allow-empty -m "release the application"'
     					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
     					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
 					}
@@ -103,14 +120,29 @@ pipeline{
 		stage('Delete container'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker' || env.BRANCH_ENV == 'development'|| env.BRANCH_ENV == 'main') {
+     				if (stage('push to release'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'development') {
+    					sh 'git checkout -b release || git checkout release'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					sh 'git merge development'
+    					sh'git commit --allow-empty -m "release the application"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
+					}
+				}
+				
+		  }
+		}env.BRANCH_NAME == 'development' || env.BRANCH_NAME == 'Docker' || env.BRANCH_ENV == 'development'|| env.BRANCH_ENV == 'main') {
 							sh 'docker rmi -f tweet_app'
 		    	}
 				}
 			}
 		}
 		
-		
+	*/	
 	}
 }
 

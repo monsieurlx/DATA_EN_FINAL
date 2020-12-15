@@ -35,7 +35,7 @@ def get_cosine_similarity(feature_vec_1, feature_vec_2):
 
 df = pd.read_csv('tweets.csv')
 df.drop_duplicates(subset ="text", keep = False, inplace = True)
-df = df.head(1000)
+#df = df.head(1000)
 #l = []
 
 
@@ -85,12 +85,14 @@ def text():
             		s = list(df3['text'])
             		if not s:
              			return 'No similar tweet found'
+             			#l5.append('<br/>')
             		else:
              			l5.append(s[0])
              			l5.append('<br/>')
             		
         	else:
-		        return 'No similar tweet found'	
+		        return 'No similar tweet found'
+		        #l5.append('<br/>')	
 	     
         
                
@@ -98,6 +100,7 @@ def text():
         l5=[] 
           
         return joined_string
+        
           
           
 
@@ -115,4 +118,5 @@ if __name__ == '__main__':
 
 
     
+
 

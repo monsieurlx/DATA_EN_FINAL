@@ -20,7 +20,7 @@ pipeline{
 				}
     	}
     }
-		
+		/*
     stage('Input_testing'){
      		steps{
      			script{
@@ -35,7 +35,7 @@ pipeline{
 					script{
     				if (env.BRANCH_NAME == 'stress_test' || env.BRANCH_NAME == 'test') {
       				sh 'python3 request_loop.py'
-        			sh 'locust -f locust_test.py --headless -u 1000'
+        		//	sh 'locust -f locust_test.py --headless -u 1000'
 					}
 				}
 				
@@ -44,23 +44,49 @@ pipeline{
 		
 		// If the test succeeded then : 
 		
-		stage('push to release'){
+		stage('development stage'){
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'test') {
-    					sh 'git fetch'
     					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
-    					sh 'git checkout origin/development'
+    					//sh 'git branch -a'
+    					//sh 'git remote add origin https://github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh 'git checkout -b Docker || git checkout Docker'
+    					sh 'git pull'
+    					sh 'git checkout -b development || git checkout development'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					//sh 'git fetch --all'			
+    					sh 'git merge origin/Docker'
     					//sh'git add *'
-    					//sh'git commit -m "releasing developped features"'
-    					//sh'git push -f origin https://{leoixeu@hotmail.fr}:{25f0e6245afd8b0ad138ead552d98bdfb3670af0}@github.com/monsieurlx/DATA_EN_FINAL.git'
-    					
+    					sh'git commit --allow-empty -m "add image to development"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
 					}
 				}
 				
 		  }
 		}
 		
+		*/
+		
+	
+		stage('push to release'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'development') {
+    					sh 'git checkout -b release || git checkout release'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					sh 'git merge development'
+    					sh'git commit --allow-empty -m "release the application"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
+					}
+				}
+				
+		  }
+		}
 		
 		stage('Release phase'){
      		steps{

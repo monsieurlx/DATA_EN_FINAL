@@ -12,7 +12,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 import pickle
 from flask import jsonify
-from prometheus_client import start_http_server
+#from prometheus_client import start_http_server
 import pickle
 
 nltk.download('stopwords')
@@ -40,7 +40,7 @@ def get_cosine_similarity(feature_vec_1, feature_vec_2):
 
 df = pd.read_csv('tweets.csv')
 df.drop_duplicates(subset ="text", keep = False, inplace = True)
-df = df.head(1000)
+df = df.head(5000)
 #l = []
 
 
@@ -115,7 +115,7 @@ def text():
 
 
 if __name__ == '__main__':
-    start_http_server(8081)
+   # start_http_server(8081)
     app.run(host='0.0.0.0')
 
 

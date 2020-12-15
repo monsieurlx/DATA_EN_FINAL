@@ -24,7 +24,7 @@ pipeline{
     stage('Input_testing'){
      		steps{
      			script{
-     				if (env.BRANCH_NAME == 'Input_Testing') {
+     				if (env.BRANCH_NAME == 'Input_Testing' || env.BRANCH_NAME == 'test') {
 							sh 'python3 test_app.py'
 		    	}
 				}
@@ -33,9 +33,35 @@ pipeline{
 		 stage('stress_test'){
 				steps{
 					script{
-    				if (env.BRANCH_NAME == 'stress_test' ) {
+    				if (env.BRANCH_NAME == 'stress_test' || env.BRANCH_NAME == 'test') {
       				sh 'python3 request_loop.py'
-        			sh 'locust -f locust_test.py --headless -u 1000'
+        		//	sh 'locust -f locust_test.py --headless -u 1000'
+					}
+				}
+				
+		  }
+		}
+		
+		// If the test succeeded then : 
+		
+		stage('development stage'){
+				steps{
+					script{
+    				if (env.BRANCH_NAME == 'test') {
+    					//sh 'git config --global user.email "leoixeu@hotmail.fr"'
+    					//sh 'git branch -a'
+    					//sh 'git remote add origin https://github.com/monsieurlx/DATA_EN_FINAL.git'
+    					sh 'git checkout -b Docker || git checkout Docker'
+    					sh 'git pull'
+    					sh 'git checkout -b development || git checkout development'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					//sh 'git fetch --all'			
+    					sh 'git merge origin/Docker'
+    					//sh'git add *'
+    					sh'git commit --allow-empty -m "add image to development"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
 					}
 				}
 				
@@ -43,18 +69,24 @@ pipeline{
 		}
 		
 		
+		
+	
 		stage('push to release'){
 				steps{
 					script{
     				if (env.BRANCH_NAME == 'development') {
-    					sh 'git checkout release'
-    					sh 'git merge development'
+    					sh 'git checkout -b release || git checkout release'	
+    					sh 'git fetch'	
+    					sh 'git pull'
+    					sh 'git merge origin/development'
+    					sh'git commit --allow-empty -m "release the application"'
+    					sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
+    					//sh'git push https://github.com/monsieurlx/DATA_EN_FINAL.git'
 					}
 				}
 				
 		  }
 		}
-		
 		
 		stage('Release phase'){
      		steps{
@@ -80,8 +112,9 @@ pipeline{
      		steps{
      			script{
      				if (env.BRANCH_NAME == 'release') {
-							sh 'git checkout main'
-							sh 'git merge release'
+							sh 'git checkout -b main || git checkout main'
+							sh 'git merge origin/release'
+							sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
 		    	}
 				}
 			}
@@ -101,7 +134,6 @@ pipeline{
 		
 	}
 }
-
 
 
 

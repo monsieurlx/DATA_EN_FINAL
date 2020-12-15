@@ -113,7 +113,7 @@ pipeline{
      			script{
      				if (env.BRANCH_NAME == 'release') {
 							sh 'git checkout -b main || git checkout main'
-							sh 'git merge release'
+							sh 'git merge origin/release'
 							sh'git push -f https://monsieurlx:Jenkinspwd1234@github.com/monsieurlx/DATA_EN_FINAL.git'
 		    	}
 				}

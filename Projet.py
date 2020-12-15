@@ -4,18 +4,18 @@ import nltk
 import numpy as np
 from nltk import word_tokenize
 from nltk.corpus import stopwords
-nltk.download('stopwords')
-nltk.download('punkt')
 #from unidecode import unidecode
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer
-from gensim.test.utils import common_texts
-from gensim.models import Word2Vec
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import pandas as pd
 from flask import jsonify
+from prometheus_client import start_http_server
+import pickle
 
+nltk.download('stopwords')
+nltk.download('punkt')
 
 def pre_process(corpus):
     corpus = corpus.lower()
@@ -25,16 +25,18 @@ def pre_process(corpus):
     corpus = str(corpus)
     return corpus
 
-model = Word2Vec(sentences=common_texts, window=5, min_count=1, workers=4)
-word_emb_model = model
+def index_in_list(a_list, index):
+    return (index < len(a_list))
+    
+word_emb_model = word_emb_model = pickle.load(open('word_emb','rb'))
 
 def get_cosine_similarity(feature_vec_1, feature_vec_2):    
     return cosine_similarity(feature_vec_1.reshape(1, -1), feature_vec_2.reshape(1, -1))[0][0]
 
 df = pd.read_csv('tweets.csv')
 df.drop_duplicates(subset ="text", keep = False, inplace = True)
-df = df.head(5000)
-l = []
+df = df.head(1000)
+#l = []
 
 
 app = Flask(__name__)
@@ -45,6 +47,7 @@ def home():
 @app.route("/text", methods=["POST","GET"])
 def text():
     if request.method == "POST":
+        l = []
         corpus = []
         corpus.append(request.form["nm"])
         for c in range(len(corpus)):
@@ -73,14 +76,26 @@ def text():
         for i in l2:
             d[i] = l[i]
 
-        d1 = {k: v for k, v in sorted(d.items(), key=lambda item: item[1])}
+        d1 = {k: v for k, v in sorted(d.items(), key=lambda item: item[1], reverse=True)}
         l5=[]
+        s=0
         for i in range(1,20):
-            df3 = df.loc[lambda df: df['Unnamed: 0'] == list(d1)[-i]]
-            a = str(df3['text'])
-            l5.append(a)
-            l5.append('<br/>')
-            joined_string = "".join(l5)
+        	if index_in_list(list(d1), i):
+            		df3 = df.loc[lambda df: df['Unnamed: 0'] == list(d1)[i]]
+            		s = list(df3['text'])
+            		if not s:
+             			return 'No similar tweet found'
+            		else:
+             			l5.append(s[0])
+             			l5.append('<br/>')
+            		
+        	else:
+		        return 'No similar tweet found'	
+	     
+        
+               
+        joined_string = "".join(l5)
+        l5=[] 
           
         return joined_string
           
@@ -95,7 +110,10 @@ def text():
 
 
 if __name__ == '__main__':
+    start_http_server(8081)
     app.run(host='0.0.0.0')
 
 
     
+
+

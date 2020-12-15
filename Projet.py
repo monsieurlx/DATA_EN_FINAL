@@ -35,7 +35,7 @@ def get_cosine_similarity(feature_vec_1, feature_vec_2):
 
 df = pd.read_csv('tweets.csv')
 df.drop_duplicates(subset ="text", keep = False, inplace = True)
-#df = df.head(1000)
+df = df.head(5000)
 #l = []
 
 

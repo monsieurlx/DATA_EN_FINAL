@@ -29,7 +29,7 @@ class Testing(unittest.TestCase):
 	def test_no_similarity(self):
 		searchstr = {'nm' : 'anticonstitutionnellement'}
 		responce = requests.post('http://0.0.0.0:5000/text',data=searchstr)
-		self.assertEqual(responce.content,b'No similar tweet found')
+		self.assertEqual(responce.content,b'No tweet found')
 	
 def tearDown(self):
 			pass
